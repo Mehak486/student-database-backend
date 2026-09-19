@@ -1,52 +1,74 @@
 # Student Database Application System – Backend
 
-A final-year internship backend project built with **FastAPI**, **SQLAlchemy/SQLite**, **Pydantic**, **Gemini API**, **LangGraph**, and **ChromaDB**.
+A final-year internship backend project built with **FastAPI, SQLAlchemy, SQLite, Pydantic, Gemini API, LangGraph, and ChromaDB**.
 
-## Features
+## 🚀 Live Application
 
-- Modular FastAPI architecture
-- Student CRUD APIs
-- Course CRUD APIs
-- Enrollment CRUD APIs
-- SQLite database with SQLAlchemy ORM
-- Automatic Swagger/OpenAPI documentation
-- Gemini-powered AI chatbot
-- LangGraph chatbot workflow
-- Student database interaction through natural-language questions
-- ChromaDB vector database for semantic retrieval
-- Health-check endpoint
-- Docker deployment support
-- Render deployment configuration
-- Environment-variable based secrets
+* **Live API:** https://student-database-backend-8xj1.onrender.com/
+* **Swagger API Docs:** https://student-database-backend-8xj1.onrender.com/docs
+* **Health Check:** https://student-database-backend-8xj1.onrender.com/health
 
-## Project Structure
+> The Render Free instance may take some time to wake up after inactivity.
+
+## ✨ Features
+
+* FastAPI modular backend architecture
+* Student CRUD operations
+* Course CRUD operations
+* Enrollment management
+* SQLAlchemy ORM with SQLite
+* Automatic Swagger/OpenAPI documentation
+* Gemini-powered AI chatbot
+* LangGraph chatbot workflow
+* ChromaDB semantic retrieval
+* Health-check endpoint
+* Docker deployment support
+* Render deployment
+* Environment-based secret management
+
+## 🛠️ Technology Stack
+
+| Technology | Purpose                     |
+| ---------- | --------------------------- |
+| Python     | Backend development         |
+| FastAPI    | REST API framework          |
+| SQLAlchemy | ORM and database operations |
+| SQLite     | Database                    |
+| Pydantic   | Data validation             |
+| Gemini API | AI chatbot                  |
+| LangGraph  | AI workflow                 |
+| ChromaDB   | Vector/semantic retrieval   |
+| Docker     | Containerization            |
+| Render     | Cloud deployment            |
+
+## 📁 Project Structure
 
 ```text
 student-database-backend/
+│
 ├── app/
-│   ├── __init__.py
 │   ├── main.py
 │   ├── database.py
 │   ├── models.py
 │   ├── schemas.py
 │   ├── crud.py
 │   ├── dependencies.py
+│   │
 │   ├── routers/
-│   │   ├── __init__.py
 │   │   ├── students.py
 │   │   ├── courses.py
 │   │   └── enrollments.py
+│   │
 │   └── services/
-│       ├── __init__.py
 │       ├── gemini_service.py
 │       ├── vector_service.py
 │       └── chatbot/
-│           ├── __init__.py
 │           └── graph.py
+│
 ├── scripts/
 │   └── seed_data.py
+│
 ├── data/
-│   └── .gitkeep
 ├── .env.example
 ├── .gitignore
 ├── requirements.txt
@@ -55,175 +77,184 @@ student-database-backend/
 └── README.md
 ```
 
-## 1. Create and activate virtual environment
+## ⚙️ Local Setup
 
-### Windows PowerShell
+### 1. Clone the repository
 
-```powershell
+```bash
+git clone https://github.com/Mehak486/student-database-backend.git
+cd student-database-backend
+```
+
+### 2. Create virtual environment
+
+Windows:
+
+```bash
 python -m venv venv
-.\venv\Scripts\Activate.ps1
+venv\Scripts\activate
 ```
 
-If PowerShell blocks activation:
+### 3. Install dependencies
 
-```powershell
-Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
-.\venv\Scripts\Activate.ps1
-```
-
-## 2. Install dependencies
-
-```powershell
+```bash
 python -m pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-## 3. Configure Gemini
+### 4. Configure environment variables
 
 Create `.env` from `.env.example`:
 
-```powershell
+```bash
 copy .env.example .env
 ```
 
-Open `.env` and add your Gemini API key:
+Add your Gemini API key:
 
 ```env
 GEMINI_API_KEY=your_gemini_api_key
+GEMINI_MODEL=gemini-2.5-flash
 ```
 
-Do not upload `.env` to GitHub.
+**Never commit `.env` or expose your API key.**
 
-## 4. Start the API
+### 5. Seed sample data
 
-```powershell
-uvicorn app.main:app --reload --port 8000
-```
-
-Open:
-
-- API: http://127.0.0.1:8000
-- Swagger: http://127.0.0.1:8000/docs
-- ReDoc: http://127.0.0.1:8000/redoc
-
-## 5. Seed sample data
-
-With the server stopped or in another terminal:
-
-```powershell
+```bash
 python scripts/seed_data.py
 ```
 
-The script inserts sample courses, students and enrollments and indexes student information into ChromaDB.
+### 6. Run the backend
 
-## Main API endpoints
+```bash
+python -m uvicorn app.main:app --reload --port 8000
+```
+
+Local API:
+
+```text
+http://127.0.0.1:8000
+```
+
+Local Swagger:
+
+```text
+http://127.0.0.1:8000/docs
+```
+
+## 📌 API Endpoints
 
 ### Students
 
-- `POST /api/students`
-- `GET /api/students`
-- `GET /api/students/{student_id}`
-- `PUT /api/students/{student_id}`
-- `DELETE /api/students/{student_id}`
+```text
+POST   /api/students
+GET    /api/students
+GET    /api/students/{student_id}
+PUT    /api/students/{student_id}
+DELETE /api/students/{student_id}
+```
 
 ### Courses
 
-- `POST /api/courses`
-- `GET /api/courses`
-- `GET /api/courses/{course_id}`
-- `PUT /api/courses/{course_id}`
-- `DELETE /api/courses/{course_id}`
+```text
+POST   /api/courses
+GET    /api/courses
+GET    /api/courses/{course_id}
+PUT    /api/courses/{course_id}
+DELETE /api/courses/{course_id}
+```
 
 ### Enrollments
 
-- `POST /api/enrollments`
-- `GET /api/enrollments`
-- `GET /api/enrollments/{enrollment_id}`
-- `DELETE /api/enrollments/{enrollment_id}`
+```text
+POST   /api/enrollments
+GET    /api/enrollments
+GET    /api/enrollments/{enrollment_id}
+DELETE /api/enrollments/{enrollment_id}
+```
 
 ### AI Chatbot
 
-`POST /api/chat`
+```text
+POST /api/chat
+```
 
-Example:
+Example request:
 
 ```json
 {
-  "message": "Show me the students in Computer Science with CGPA above 8"
+  "message": "Which students are in Computer Science?"
 }
 ```
 
-The chatbot uses a LangGraph workflow:
+The chatbot retrieves relevant student information from **ChromaDB**, processes it through **LangGraph**, and generates a response using the **Gemini API**.
 
-```text
-User Question
-     ↓
-Retrieve student context from ChromaDB
-     ↓
-Build grounded prompt
-     ↓
-Gemini generates answer
-     ↓
-Response
-```
-
-## Vector database research/selection
-
-This project uses **ChromaDB** because it is simple to run locally, Python-friendly, open-source, and suitable for a student-project semantic retrieval layer. The application keeps SQLite as the source of truth for structured student records and uses ChromaDB as the retrieval/index layer.
-
-Alternatives researched for this type of project include:
-
-| Vector DB | Typical strength | Project fit |
-|---|---|---|
-| ChromaDB | Simple local setup and Python integration | Selected |
-| FAISS | Fast local similarity search library | Good for prototypes |
-| Qdrant | Full vector database with filtering | Strong production option |
-| Pinecone | Managed cloud vector database | Good managed option |
-| Weaviate | Full-featured vector search platform | Good for larger systems |
-
-## Architecture
+## 🏗️ Architecture
 
 ```text
 Client
-  |
-  v
+   │
+   ▼
 FastAPI
-  |
-  +--> Routers --> CRUD --> SQLAlchemy --> SQLite
-  |
-  +--> Chat Router
-          |
-          v
+   │
+   ├── Student / Course / Enrollment APIs
+   │          │
+   │          ▼
+   │      SQLAlchemy
+   │          │
+   │          ▼
+   │        SQLite
+   │
+   └── AI Chatbot
+          │
+          ▼
        LangGraph
-          |
-          +--> ChromaDB retrieval
-          |
-          +--> Gemini API
-          |
-          v
-       AI response
+          │
+          ├── ChromaDB
+          │
+          └── Gemini API
 ```
 
-## Docker
+## 🐳 Docker
 
 Build:
 
-```powershell
+```bash
 docker build -t student-database-backend .
 ```
 
 Run:
 
-```powershell
+```bash
 docker run --env-file .env -p 8000:8000 student-database-backend
 ```
 
-## Deploying
+## ☁️ Deployment
 
-The included `render.yaml` can be used as a starting point for Render deployment. Add `GEMINI_API_KEY` as a secret/environment variable in the deployment dashboard.
+The backend is deployed using **Docker + Render**.
 
-## Important
+Deployment configuration is available in:
 
-- Never commit `.env`.
-- Never hard-code API keys.
-- The chatbot is grounded using retrieved database information, but AI responses should still be verified for important administrative decisions.
+```text
+render.yaml
+```
+
+Environment secrets such as `GEMINI_API_KEY` are configured securely through the Render dashboard.
+
+## 🔐 Security
+
+* API keys are stored in environment variables.
+* `.env` is excluded through `.gitignore`.
+* Virtual environment files are excluded from Git.
+* Database and ChromaDB runtime files are not committed.
+* Secrets should never be hard-coded or uploaded to GitHub.
+
+## 👩‍💻 Author
+
+**Mehak Sharma**
+
+B.Tech Computer Science Graduate
+
+GitHub: https://github.com/Mehak486
+
